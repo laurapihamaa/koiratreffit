@@ -6,9 +6,13 @@ the koiratreffit-app (dog date in english) idea started with me getting my first
 
 Used technologies
 Backend: Java 21 with SpringBoot, unit tests using Junit
+
 Frontend: planned to use React.js, Redux for state management. BootStrap for design?
+
 Database: MongoDB
+
 CI/CD: GitHub Actions
+
 
 
 

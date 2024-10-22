@@ -20,9 +20,9 @@ public class DogController {
 
         Dog dog = dogServiceInterface.getDogDataById(id);
 
-        /*if(dog==null){
+        if(dog==null){
             return ResponseEntity.badRequest().body("No dog is found");
-        }*/
+        }
 
         return ResponseEntity.ok(dog);
     }

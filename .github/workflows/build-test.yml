@@ -29,3 +29,13 @@ jobs:
       - name: Run Tests
         run: mvn test
         working-directory: ./backend/v1
+
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          languages: java
+          output: codeql-results.sarif
+
+      - name: Publish Test Results
+        run: mvn surefire-report:report
+        working-directory: ./backend/v1

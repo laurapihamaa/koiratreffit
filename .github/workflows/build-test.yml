@@ -12,11 +12,8 @@ jobs:
 
     steps:
       - name: Checkout Code
-        run: git clone https://github.com/laurapihamaa/koiratreffit.git
-
-      - name: List directory
-        run: ls -R
-
+        uses: actions/checkout@v2
+        
       - name: Use Java 21
         uses: actions/setup-java@v1
         with:
@@ -28,3 +25,4 @@ jobs:
 
       - name: Run Tests
         run: mvn test
+        working-directory: ./koiratreffit/backend/v1

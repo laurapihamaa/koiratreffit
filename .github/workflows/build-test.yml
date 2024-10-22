@@ -24,7 +24,7 @@ jobs:
           
       - name: Build with maven
         run: mvn clean install
-        working-directory: backend/v1
+        working-directory: ./koiratreffit/backend/v1
 
       - name: Run Tests
         run: mvn test

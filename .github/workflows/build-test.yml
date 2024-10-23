@@ -46,3 +46,11 @@ jobs:
 
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_IMAGE }}
+
+      - name: Run Docker Container
+        run: |
+          docker run -d \
+            -e MONGODB_USERNAME=${{ secrets.MONGODB_USERNAME }} \
+            -e MONGODB_PASSWORD=${{ secrets.MONGODB_PASSWORD }} \
+            -p 8080:8080 \
+            ${{ secrets.DOCKER_IMAGE }}

@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - MONGODB_USERNAME=${{ secrets.MONGODB_USERNAME }}
+      - MONGODB_PASSWORD=${{ secrets.MONGODB_PASSWORD }}
     image: ${DOCKER_IMAGE}
     ports:
       - "8080:8080"

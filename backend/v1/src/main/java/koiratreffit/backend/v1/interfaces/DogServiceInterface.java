@@ -8,5 +8,7 @@ import koiratreffit.backend.v1.objects.Dog;
 public interface DogServiceInterface {
 
     Dog getDogDataById(String id);
+
+    Dog getRandomDog();
     
 }

@@ -1,6 +1,8 @@
 package koiratreffit.backend.v1.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,19 @@ public class DogService implements DogServiceInterface {
 			return dogOptional.orElse(null);
 		}catch(Exception e) {
 			throw new RuntimeException("Error getting dog by id");
+		}
+    }
+
+    @Override
+    public Dog getRandomDog() {
+        try {
+			List<Dog> dogs = dogRepository.findAll();
+            Random random = new Random();
+
+			return dogs.get(random.nextInt(dogs.size()));
+
+		}catch(Exception e) {
+			throw new RuntimeException("Error getting random dog");
 		}
     }
     

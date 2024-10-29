@@ -10,6 +10,10 @@ jobs:
   image-to-docker:
     runs-on: ubuntu-latest
 
+    env:
+      DOCKER_IMAGE_BACK: ${{ secrets.DOCKER_IMAGE_BACK }}
+      DOCKER_IMAGE_FRONT: ${{ secrets.DOCKER_IMAGE_FRONT }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -28,35 +32,13 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-          
-      - name: Check Build Context
-        run: |
-          cd ./backend/v1
-          cd ../../frontend/v1/KoiratreffitApp
-          ls -R
 
       - name: Build Docker Compose
         run: |
           cd ./backend/v1
           docker-compose build --no-cache
-        env:
-          DOCKER_IMAGE_BACK: ${{ secrets.DOCKER_IMAGE_BACK }}
-          DOCKER_IMAGE_FRONT: ${{ secrets.DOCKER_IMAGE_FRONT }}
 
       - name: Push Docker Image
         run: |
           cd ./backend/v1
           docker-compose push
-        env:
-          DOCKER_IMAGE_BACK: ${{ secrets.DOCKER_IMAGE_BACK }}
-          DOCKER_IMAGE_FRONT: ${{ secrets.DOCKER_IMAGE_FRONT }}
-
-      - name: Run Docker Container
-        run: |
-          cd ./backend/v1
-          docker-compose up -d
-        env:
-          MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-          MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-          DOCKER_IMAGE_BACK: ${{ secrets.DOCKER_IMAGE_BACK }}
-          DOCKER_IMAGE_FRONT: ${{ secrets.DOCKER_IMAGE_FRONT }}

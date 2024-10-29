@@ -30,11 +30,16 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker Compose
-        run: docker-compose build
+        run: |
+          cd ./backend/v1
+          docker-compose build
 
       - name: Push Docker Image
-        run: docker-compose push
+        run: |
+          cd ./backend/v1
+          docker-compose push
 
       - name: Run Docker Container
         run: |
+          cd ./backend/v1
           docker-compose up -d

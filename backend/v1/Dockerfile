@@ -1,5 +1,8 @@
 # Use maven for building
-FROM maven:3.8.5 AS build
+FROM openjdk:21-jdk-slim AS build
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
 
 # Set the working directory inside the container
 WORKDIR /koiratreffit/backend

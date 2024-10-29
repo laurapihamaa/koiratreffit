@@ -7,7 +7,15 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_USERNAME=${{ secrets.MONGODB_USERNAME }}
-      - MONGODB_PASSWORD=${{ secrets.MONGODB_PASSWORD }}
-    image: ${DOCKER_IMAGE}
+      - MONGODB_PASSWORD=${{ secrets.MONGODB_PASSWORD}}
+    image: ${{ secrets.DOCKER_IMAGE_BACK }}
     ports:
       - "8080:8080"
+
+  frontend:
+    build:
+      context: /../../frontend/v1/KoiratreffitApp 
+      dockerfile: Dockerfile 
+    image: ${{ secrets.DOCKER_IMAGE_FRONT }}
+    ports:
+      - "8081:8081" 

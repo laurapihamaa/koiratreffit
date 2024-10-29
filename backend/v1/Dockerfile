@@ -1,5 +1,5 @@
 # Use maven for building
-FROM maven:3.8.5-openjdk-21-slim AS build
+FROM maven:3.8.5 AS build
 
 # Set the working directory inside the container
 WORKDIR /koiratreffit/backend

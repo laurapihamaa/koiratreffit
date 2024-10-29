@@ -47,6 +47,9 @@ jobs:
         run: |
           cd ./backend/v1
           docker-compose push
+        env:
+          DOCKER_IMAGE_BACK: ${{ secrets.DOCKER_IMAGE_BACK }}
+          DOCKER_IMAGE_FRONT: ${{ secrets.DOCKER_IMAGE_FRONT }}
 
       - name: Run Docker Container
         run: |

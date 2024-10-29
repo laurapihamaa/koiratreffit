@@ -58,3 +58,5 @@ jobs:
         env:
           MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
           MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+          DOCKER_IMAGE_BACK: ${{ secrets.DOCKER_IMAGE_BACK }}
+          DOCKER_IMAGE_FRONT: ${{ secrets.DOCKER_IMAGE_FRONT }}

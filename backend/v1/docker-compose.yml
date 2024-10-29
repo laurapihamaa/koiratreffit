@@ -14,7 +14,7 @@ services:
 
   frontend:
     build:
-      context: /../../frontend/v1/KoiratreffitApp 
+      context: ../../frontend/v1/KoiratreffitApp 
       dockerfile: Dockerfile 
     image: ${DOCKER_IMAGE_FRONT}
     ports:

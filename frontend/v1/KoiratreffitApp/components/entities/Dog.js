@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles";
 import { View, Text } from 'react-native';
+import Image from './Image';
 
 const Dog = () => {
     
@@ -24,9 +25,10 @@ const Dog = () => {
 
     return(
         <View style={styles.container}>
+            <Image imageArray={dog?.imageData}/>
             <Text>{dog?.name} || {dog?.age}</Text>
             <Text>{dog?.breed}</Text>
-            <Text>{dog?.description}</Text>
+            <Text>{dog?.description}</Text>          
         </View>
     );
 };

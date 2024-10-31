@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: '#fff',
     },
+
+    resizedimage: {
+      width: '200px', /* or any size you prefer */
+      height: 'auto',
+  },
   });
 
 export default styles;

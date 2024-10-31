@@ -27,6 +27,9 @@ public class Dog {
     @NotBlank(message = "Age is required")
     private int age;
 
+    @NotBlank(message = "Age is required")
+    private String imageData;
+
     //private String location;
 
     public ObjectId getId() {
@@ -67,6 +70,14 @@ public class Dog {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
 
 

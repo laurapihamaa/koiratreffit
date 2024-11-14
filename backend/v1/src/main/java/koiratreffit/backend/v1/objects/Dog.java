@@ -30,6 +30,12 @@ public class Dog {
     @NotBlank(message = "Age is required")
     private String imageData;
 
+    @NotBlank(message = "Gender is required")
+    private String gender;
+
+    @NotBlank(message = "Location is required")
+    private String location;
+
     //private String location;
 
     public ObjectId getId() {
@@ -78,6 +84,22 @@ public class Dog {
 
     public void setImageData(String imageData) {
         this.imageData = imageData;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
 

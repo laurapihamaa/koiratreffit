@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       textAlign: 'center',
       margin: 5,
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)'
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
     },
     container: {
       flex: 1,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DBE9D7',
     fontSize: 16,
     textTransform: 'uppercase',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   infoTag: {
     height: '8%',
@@ -45,6 +45,25 @@ const styles = StyleSheet.create({
   textContainer: {
     height: '40%',
     backgroundColor: '#FFFFFF',
+  },
+  likeButton: {
+    name: 'heart',
+    color: '#7fc3fe',
+    size: 24
+  },
+  likeButtonBackground: {
+    height: 50,
+    width: 50,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#7fc3fe',
+    borderWidth: 1,
+    borderRadius: 40,
+    elevation: 5,
+    position: 'absolute',
+    bottom: 20,
+    right: 20
   }
   });
 

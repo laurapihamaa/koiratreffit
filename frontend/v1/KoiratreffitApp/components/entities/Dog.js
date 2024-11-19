@@ -1,25 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import styles from "../../styles";
 import { View, Text, Image } from 'react-native';
 
-const Dog = () => {
+const Dog = ({dog}) => {
     
-    const [dog, setDog] = useState(null);
-
-    const fetchDog = useCallback(async() => {
-        try{
-            const response = await fetch('http://192.168.100.5:8080/dogs/getRandomDog');
-            const data = await response.json();
-            setDog(data);
-            console.log(dog)
-        }catch (error){
-            console.log('error fetching dog: ', error)
-        }
-    });
-
-    useEffect(() => {
-        fetchDog();
-    }, []);
 
     return(
         <View>

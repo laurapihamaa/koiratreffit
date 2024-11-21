@@ -17,6 +17,15 @@ public class DogController {
     @Autowired
     private DogServiceInterface dogServiceInterface;
 
+    /*
+     * 
+     * Retrieve a dog with the given id
+     * 
+     * @param id the id of the dog
+     * @return ResponseEntity containing the dog if the dog is found
+     * 
+     */
+
     @GetMapping("/dogs/getDog/{id}")
     public ResponseEntity<?> getDogById(@PathVariable String id){
 
@@ -28,6 +37,14 @@ public class DogController {
 
         return ResponseEntity.ok(dog);
     }
+
+    /*
+     * 
+     * Retrieve a random dog
+     * 
+     * @return ResponseEntity containing a dog if any dog is found
+     * 
+     */
 
     @GetMapping("/dogs/getRandomDog")
     public ResponseEntity<?> getRandomDog(){

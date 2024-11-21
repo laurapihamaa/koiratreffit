@@ -17,6 +17,15 @@ public class DogService implements DogServiceInterface {
     @Autowired
     private DogRepository dogRepository;
 
+    /*
+     * 
+     * Get dog by given id
+     * 
+     * @param id the dog id to fetch
+     * @return Dog the dog object based on the id
+     * 
+     */
+
     @Override
     public Dog getDogDataById(String id) {
         try {
@@ -26,6 +35,14 @@ public class DogService implements DogServiceInterface {
 			throw new RuntimeException("Error getting dog by id");
 		}
     }
+
+    /*
+     * 
+     * fetch dogs and return a random one of them
+     * 
+     * @return Dog the random dog fetched
+     * 
+     */
 
     @Override
     public Dog getRandomDog() {

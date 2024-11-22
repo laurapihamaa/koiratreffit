@@ -1,8 +1,9 @@
-import React, { Fragment, useCallback, useRef, useEffect } from "react";
+import React, { Fragment, useState, useRef, useEffect } from "react";
 import styles from "../../styles";
 import { PanResponder, View, Animated } from 'react-native';
 import Dog from './Dog';
 import Button from './Button';
+import PopupInfo from "./PopupInfo";
 
 const Card = ({dog, onSwipe}) => {
 
@@ -70,6 +71,17 @@ const Card = ({dog, onSwipe}) => {
         transform: [...swipe.getTranslateTransform(), { rotate }]
     }
 
+    //set visibility for info pop up
+    const [openInfo, setOpenInfo] = useState(false);
+
+    const closeInfo = () =>{
+        console.log("close pressed");
+        setOpenInfo(false);
+    }
+
+    const addAsFriend = () => {
+        setOpenInfo(true);
+    }
 
     return(
         <Animated.View style={[
@@ -84,7 +96,12 @@ const Card = ({dog, onSwipe}) => {
                 name={styles.likeButton.name}
                 color={styles.likeButton.color}
                 size={styles.likeButton.size}
-                style={styles.likeButtonBackground}/>
+                style={styles.likeButtonBackground}
+                addAsFriend={addAsFriend}/>
+            <PopupInfo
+                isVisible={openInfo}
+                infoText={`${dog?.name} was added to your friends!`}
+                closeButton={closeInfo}/>
         </Animated.View>   
     );
 };

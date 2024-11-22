@@ -2,7 +2,7 @@ import { TouchableWithoutFeedback, Animated } from "react-native"
 import React, { useCallback, useRef } from 'react'
 import { FontAwesome } from "@expo/vector-icons"
 
-const Button = ({name, color, size, style}) => {
+const Button = ({name, color, size, style, addAsFriend}) => {
 
     const scale = useRef(new Animated.Value(1)).current;
 
@@ -11,7 +11,9 @@ const Button = ({name, color, size, style}) => {
                 toValue: newValue,
                 friction: 4,
                 useNativeDriver: true
-            }).start();
+            }).start(() => {
+                addAsFriend();
+            });
     }, [scale])
 
 

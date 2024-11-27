@@ -1,13 +1,14 @@
 import { StyleSheet, Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get('window');
+const scale = (size) => (width / 375) * size;
 
 const styles = StyleSheet.create({
 
     basicCentering: {
       justifyContent: 'center',
       textAlign: 'center',
-      margin: 5,
+      margin: scale(5),
       boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
     },
     container: {
@@ -17,10 +18,10 @@ const styles = StyleSheet.create({
 
     resizedimage: {
       height: '40%',
-      margin: 5
+      margin: scale(5)
   },
   card: {
-    width: width-10,
+    width: width-scale(10),
     height: height*0.9,
     backgroundColor: '#F6F6F6',
     display: 'flex',
@@ -29,14 +30,14 @@ const styles = StyleSheet.create({
   nameTag: {
     height: '5%',
     backgroundColor: '#DBE9D7',
-    fontSize: 16,
+    fontSize: scale(16),
     textTransform: 'uppercase',
     flexDirection: 'row'
   },
   infoTag: {
     height: '8%',
     backgroundColor: '#ADC9AA',
-    fontSize: 16,
+    fontSize: scale(16),
     textTransform: 'uppercase',
     gap: 2,
     flexDirection: 'column', 
@@ -49,21 +50,47 @@ const styles = StyleSheet.create({
   likeButton: {
     name: 'heart',
     color: '#7fc3fe',
-    size: 24
+    size: scale(24)
   },
   likeButtonBackground: {
-    height: 50,
-    width: 50,
+    height: scale(50),
+    width: scale(50),
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#7fc3fe',
     borderWidth: 1,
-    borderRadius: 40,
+    borderRadius: scale(40),
     elevation: 5,
     position: 'absolute',
-    bottom: 20,
-    right: 20
+    bottom: scale(20),
+    right: scale(20)
+  },
+  infoBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: '#FFA9A9',
+    fontSize: scale(16),
+    fontWeight: 'bold',
+  },
+  formTextContainer: {
+    height: '10%',
+    margin: scale(5),
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: scale(10),
+  },
+  formTextContainerLarge: {
+    height: '30%',
+    margin: scale(5),
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: scale(10),
+    textAlignVertical: 'top'
   }
   });
 

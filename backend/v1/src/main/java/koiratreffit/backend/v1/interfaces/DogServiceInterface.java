@@ -10,5 +10,7 @@ public interface DogServiceInterface {
     Dog getDogDataById(String id);
 
     Dog getRandomDog();
+
+    Dog createDog(Dog dog);
     
 }

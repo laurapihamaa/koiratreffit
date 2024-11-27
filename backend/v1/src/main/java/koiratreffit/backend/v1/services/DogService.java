@@ -56,5 +56,24 @@ public class DogService implements DogServiceInterface {
 			throw new RuntimeException("Error getting random dog");
 		}
     }
+
+    /*
+	 * 
+	 * Create a new dog to the repository
+	 * 
+	 * @param dog The dog to store
+	 * @return dog the saved dog
+	 * 
+	 */
+
+	@Override
+	public Dog createDog(Dog dog) {
+		
+		try {
+			return dogRepository.save(dog);
+		}catch(Exception e) {
+			throw new RuntimeException("Error creating dog");
+		}
+	}
     
 }

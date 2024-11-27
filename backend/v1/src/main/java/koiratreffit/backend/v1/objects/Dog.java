@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Document(collection="Dogs")
 public class Dog {
@@ -16,24 +17,29 @@ public class Dog {
     private ObjectId id;
     
     @NotBlank(message = "Name is required")
+    @Column(name= "name")
     private String name;
 
     @NotBlank(message = "Breed is required")
+    @Column(name= "breed")
     private String breed;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @NotBlank(message = "Age is required")
-    private int age;
+    @NotNull(message = "Age is required")
+    @Column(name= "age")
+    private Double age;
 
-    @NotBlank(message = "Age is required")
+    @Column(name= "imageData")
     private String imageData;
 
     @NotBlank(message = "Gender is required")
+    @Column(name= "gender")
     private String gender;
 
     @NotBlank(message = "Location is required")
+    @Column(name= "location")
     private String location;
 
     //private String location;
@@ -70,11 +76,11 @@ public class Dog {
         this.description = description;
     }
 
-    public int getAge() {
+    public double getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(double age) {
         this.age = age;
     }
 

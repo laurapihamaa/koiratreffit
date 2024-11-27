@@ -75,13 +75,13 @@ const Card = ({dog, onSwipe}) => {
     const [openInfo, setOpenInfo] = useState(false);
 
     const closeInfo = () =>{
-        console.log("close pressed");
         setOpenInfo(false);
     }
 
     const addAsFriend = () => {
-        setOpenInfo(true);
+       setOpenInfo(true);
     }
+
 
     return(
         <Animated.View style={[
@@ -97,11 +97,13 @@ const Card = ({dog, onSwipe}) => {
                 color={styles.likeButton.color}
                 size={styles.likeButton.size}
                 style={styles.likeButtonBackground}
-                addAsFriend={addAsFriend}/>
+                addAsFriend={addAsFriend}
+                />
             <PopupInfo
                 isVisible={openInfo}
                 infoText={`${dog?.name} was added to your friends!`}
-                closeButton={closeInfo}/>
+                closeButton={closeInfo}
+                />
         </Animated.View>   
     );
 };

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, ScrollView, TextInput, Button, Alert} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from "../../styles";
+import ImageUpload from './ImageUpload';
 
 const DogForm = () => {
 
@@ -11,6 +12,7 @@ const DogForm = () => {
   const [description, setDescription] = useState("");
   const [gender, setGender] = useState("");
   const [location, setLocation] = useState("");
+  const [imageData, setImageData] = useState("");
 
   const [nameError, setNameError] = useState("");
   const [genderError, setGenderError] = useState("");
@@ -25,7 +27,8 @@ const DogForm = () => {
       breed,
       description,
       gender,
-      location
+      location,
+      imageData
     }
 
     try{
@@ -61,8 +64,13 @@ const DogForm = () => {
       }
     };
 
+  const addImageData = (imageData) =>{
+    setImageData(imageData);
+  }
+
   return (
     <View>
+        <ImageUpload addImageData={addImageData}/>
         <TextInput
           placeholder={nameError === "" ? "Name" : nameError}
           placeholderTextColor={nameError ? '#bd4d5b' : 'gray'}

@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   formTextContainer: {
-    height: '10%',
+    height: '7%',
     margin: scale(5),
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
@@ -91,7 +91,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: scale(10),
     textAlignVertical: 'top'
-  }
+  },
+  smallImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+  },
+  uploadContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+  },
+    uploadButton: {
+      padding: 2,
+    },
   });
 
 export default styles;

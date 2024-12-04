@@ -18,20 +18,20 @@ import koiratreffit.backend.v1.objects.User;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081/")
-public class UserController {
+public class AuthController {
 
     @Autowired
     private UserServiceInterface userServiceInterface;
 
      /**
      * 
-     * Post a new dog to the database. Use the binding result to check that all the required attributes are provided.
+     * Post a new user to the database. Use the binding result to check that all the required attributes are provided.
      * 
      * @param user The user to be posted
-     * @return ResponseEntity containing the created dog if the dog has all of the required attributes
+     * @return ResponseEntity containing the created user if the user has all of the required attributes
      * 
      */
-    @PostMapping("/users/createNewUser")
+    @PostMapping("/register")
     public ResponseEntity<?>  createUser (@Valid @RequestBody User user, BindingResult bindingResult) {
     	
         //check for any validation errors. Create a key-value map for frontend if yes

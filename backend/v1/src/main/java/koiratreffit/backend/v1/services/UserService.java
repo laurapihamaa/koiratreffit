@@ -1,7 +1,7 @@
 package koiratreffit.backend.v1.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import koiratreffit.backend.v1.interfaces.UserServiceInterface;
@@ -14,20 +14,16 @@ public class UserService implements UserServiceInterface{
     @Autowired
     UserRepository userRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    public UserService(){
-        this.passwordEncoder = new BCryptPasswordEncoder();
-    }
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(User user) {
-        
+
         String hashedPassword = passwordEncoder.encode(user.getPassword());
 
         user.setPassword(hashedPassword);
 
         return userRepository.save(user);
     }
-    
 }

@@ -76,11 +76,11 @@ public class Dog {
         this.description = description;
     }
 
-    public double getAge() {
+    public Double getAge() {
         return age;
     }
 
-    public void setAge(double age) {
+    public void setAge(Double age) {
         this.age = age;
     }
 

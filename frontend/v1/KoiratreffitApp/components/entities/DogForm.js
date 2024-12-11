@@ -3,8 +3,11 @@ import {View, ScrollView, TextInput, Button, Alert} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from "../../styles";
 import ImageUpload from './ImageUpload';
+import { useNavigation } from '@react-navigation/native'; 
 
 const DogForm = () => {
+
+  const navigation = useNavigation();
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -59,6 +62,8 @@ const DogForm = () => {
 
           Alert.alert("Dog succesfully submitted!");
 
+          navigation.navigate("Koirakaverit");
+
       }catch (error){
           console.log('error fetching dog: ', error)
       }
@@ -93,6 +98,7 @@ const DogForm = () => {
         />
         <TextInput
           placeholder="Description"
+          placeholderTextColor='gray'
           value={description}
           onChangeText={setDescription}
           style={styles.formTextContainerLarge} 

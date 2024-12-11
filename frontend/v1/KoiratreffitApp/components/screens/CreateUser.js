@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styles from '../../styles.js';
 import { Text, View } from 'react-native';
-import DogForm from '../entities/DogForm.js'
+import LoginForm from '../entities/LoginForm.js'
 
-const SignIn = () => {
+const CreateUser = () => {
 
     return(
     <View>
-      <DogForm/>
+      <LoginForm/>
     </View>
     );
 };
 
-export default SignIn;
+export default CreateUser;

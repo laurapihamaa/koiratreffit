@@ -43,6 +43,9 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Column(name= "imageData")
+    private String imageData;
+
     public String getId() {
         return id;
     }
@@ -73,6 +76,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
     
 }

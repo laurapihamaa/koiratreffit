@@ -2,8 +2,10 @@ package koiratreffit.backend.v1.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -37,13 +39,15 @@ public class DogController {
     @GetMapping("/dogs/getDog/{id}")
     public ResponseEntity<?> getDogById(@PathVariable String id){
 
-        Dog dog = dogServiceInterface.getDogDataById(id);
-
-        if(dog==null){
-            return ResponseEntity.badRequest().body("No dog is found");
-        }
-
-        return ResponseEntity.ok(dog);
+        try {
+            Dog dog = dogServiceInterface.getDogDataById(id);
+            return ResponseEntity.ok(dog);
+            
+        }catch(NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No dog found with ID: " + id);
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured. Please try again later");
+        }    
     }
 
     /*
@@ -57,13 +61,15 @@ public class DogController {
     @GetMapping("/dogs/getRandomDog")
     public ResponseEntity<?> getRandomDog(){
 
+        try {
         Dog dog = dogServiceInterface.getRandomDog();
-
-        if(dog==null){
-            return ResponseEntity.badRequest().body("No dog is found");
-        }
-
         return ResponseEntity.ok(dog);
+
+        }catch(NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No dogs found");
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured. Please try again later");
+        } 
     }
 
      /**
@@ -71,7 +77,7 @@ public class DogController {
      * Post a new dog to the database. Use the binding result to check that all the required attributes are provided.
      * 
      * @param dog The dog to be posted
-     * @return ResponseEntity containing the created dog if the dog has all of the required attributes
+     * @return ResponseEntity of ok if the dog has all of the required attributes
      * 
      */
     @PostMapping("/dogs/createNewDog")
@@ -89,7 +95,12 @@ public class DogController {
              return ResponseEntity.badRequest().body(errorMessages);
         }
     	
-    	return ResponseEntity.ok(dogServiceInterface.createDog(dog));
+    	try {
+            dogServiceInterface.createDog(dog);
+            return ResponseEntity.ok("dog created succesfully");
+        }catch(Exception e){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured. Please try again later");
+            } 
     	
 
     }

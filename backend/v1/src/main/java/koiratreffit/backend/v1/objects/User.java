@@ -1,8 +1,10 @@
 package koiratreffit.backend.v1.objects;
 
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotBlank;
@@ -26,11 +28,11 @@ public class User {
     @Id
     private String id;
 
-    @NotBlank(message="User name is required")
+    @NotBlank(message="Username is required")
     @Size(max=10, message="Maximum length for username is 10")
     @UsernameDuplicates
     @Column(name="username")
-    private String userName;
+    private String username;
 
     @NotBlank(message="Email is required")
     @Pattern(regexp="^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$", message="Email is in invalid format")
@@ -46,6 +48,13 @@ public class User {
     @Column(name= "imageData")
     private String imageData;
 
+    @Column(name="roles")
+    private String roles;
+
+    @Column(name="dogId")
+    private String dogId;
+
+
     public String getId() {
         return id;
     }
@@ -54,12 +63,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -85,5 +94,20 @@ public class User {
     public void setImageData(String imageData) {
         this.imageData = imageData;
     }
-    
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public String getDogId() {
+        return dogId;
+    }
+
+    public void setDogId(String dogId) {
+        this.dogId = dogId;
+    }
 }

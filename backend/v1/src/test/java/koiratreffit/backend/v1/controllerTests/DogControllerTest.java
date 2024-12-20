@@ -23,6 +23,7 @@ import koiratreffit.backend.v1.configurations.SecurityConfig;
 import koiratreffit.backend.v1.controllers.DogController;
 import koiratreffit.backend.v1.interfaces.DogServiceInterface;
 import koiratreffit.backend.v1.objects.Dog;
+import koiratreffit.backend.v1.services.LoginService;
 
 @WebMvcTest(DogController.class)
 @Import(SecurityConfig.class)
@@ -30,6 +31,9 @@ public class DogControllerTest {
 
     @MockBean
     private DogServiceInterface dogServiceInterface;
+
+    @MockBean
+    LoginService loginService;
 
     @Autowired
     private MockMvc mockMvc;

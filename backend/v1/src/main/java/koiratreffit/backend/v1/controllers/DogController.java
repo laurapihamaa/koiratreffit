@@ -41,6 +41,11 @@ public class DogController {
 
         try {
             Dog dog = dogServiceInterface.getDogDataById(id);
+
+            if (dog==null){
+                return ResponseEntity.badRequest().body("No dog is found");
+            }
+
             return ResponseEntity.ok(dog);
             
         }catch(NoSuchElementException e) {
@@ -63,6 +68,11 @@ public class DogController {
 
         try {
         Dog dog = dogServiceInterface.getRandomDog();
+
+        if (dog==null){
+            return ResponseEntity.badRequest().body("No dog is found");
+        }
+        
         return ResponseEntity.ok(dog);
 
         }catch(NoSuchElementException e) {

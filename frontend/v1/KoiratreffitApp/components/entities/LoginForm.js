@@ -8,7 +8,7 @@ const LoginForm = () => {
 
   const navigation = useNavigation();
 
-  const [userName, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [imageData, setImageData] = useState("");
@@ -18,8 +18,12 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState("");
 
   const submitUserInfo = async() => {
+
+    const dogId="dogid";
+    const role="USER";
+
     const userData = {
-      userName,
+      username,
       email,
       password,
       imageData
@@ -37,7 +41,7 @@ const LoginForm = () => {
           if(!response.ok){
             const data = await response.json();
 
-            data.userName && (setUsernameError(data.userName), setUsername(""));
+            data.username && (setUsernameError(data.username), setUsername(""));
             data.email && (setEmailError(data.email), setEmail(""));
             data.password && (setPasswordError(data.password), setPassword(""));
 
@@ -67,7 +71,7 @@ const LoginForm = () => {
         <TextInput
           placeholder={usernameError === "" ? "Username" : usernameError}
           placeholderTextColor={usernameError ? '#bd4d5b' : 'gray'}
-          value={userName}
+          value={username}
           onChangeText={setUsername}
           style={styles.formTextContainer} />
         <TextInput

@@ -22,6 +22,7 @@ import koiratreffit.backend.v1.controllers.AuthController;
 import koiratreffit.backend.v1.interfaces.UserServiceInterface;
 import koiratreffit.backend.v1.objects.User;
 import koiratreffit.backend.v1.repositories.UserRepository;
+import koiratreffit.backend.v1.services.LoginService;
 
 @WebMvcTest(AuthController.class)
 @Import(SecurityConfig.class)
@@ -29,6 +30,9 @@ public class AuthControllerTest {
 
     @MockBean
     private UserServiceInterface userServiceInterface;
+
+    @MockBean
+    private LoginService loginService;
 
     @MockBean
     UserRepository userRepository;
@@ -47,8 +51,10 @@ public class AuthControllerTest {
         user = new User();
         user.setId(ObjectId.get().toString());
         user.setEmail("email@test.fi");
-        user.setUserName("testUser");
+        user.setUsername("testUser");
         user.setPassword("TestPassword1234!");
+        user.setImageData(null);
+        user.setRoles("USER");
 
     }
 
@@ -85,7 +91,7 @@ public class AuthControllerTest {
 
         //test a username too long
 
-        user.setUserName("ausernamethatiswaytoolongfortheapp");
+        user.setUsername("ausernamethatiswaytoolongfortheapp");
  
          when(userServiceInterface.createUser(user)).thenReturn(user);
  
@@ -94,11 +100,11 @@ public class AuthControllerTest {
              .content(objectMapper.writeValueAsString(user)))
              .andDo(print())
              .andExpect(status().is4xxClientError())
-             .andExpect(jsonPath("$.userName").value("Maximum length for username is 10"));
+             .andExpect(jsonPath("$.username").value("Maximum length for username is 10"));
 
         //test missing username
 
-        user.setUserName(null);
+        user.setUsername(null);
 
         when(userServiceInterface.createUser(user)).thenReturn(user);
  
@@ -106,7 +112,7 @@ public class AuthControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(user)))
             .andExpect(status().is4xxClientError())
-            .andExpect(jsonPath("$.userName").value("User name is required"));
+            .andExpect(jsonPath("$.username").value("Username is required"));
  
      }
 

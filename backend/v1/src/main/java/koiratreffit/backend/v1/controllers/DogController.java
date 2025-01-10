@@ -37,13 +37,16 @@ public class DogController {
     @GetMapping("/dogs/getDog/{id}")
     public ResponseEntity<?> getDogById(@PathVariable String id){
 
-        Dog dog = dogServiceInterface.getDogDataById(id);
-
-        if(dog==null){
-            return ResponseEntity.badRequest().body("No dog is found");
-        }
-
-        return ResponseEntity.ok(dog);
+        try {
+            Dog dog = dogServiceInterface.getDogDataById(id);
+            if(dog==null){
+                return ResponseEntity.badRequest().body("No dog found with id.");
+            }
+            return ResponseEntity.ok(dog);
+            
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body("An error occured. Please try again later");
+        }    
     }
 
     /*
@@ -57,13 +60,18 @@ public class DogController {
     @GetMapping("/dogs/getRandomDog")
     public ResponseEntity<?> getRandomDog(){
 
+        try {
         Dog dog = dogServiceInterface.getRandomDog();
 
-        if(dog==null){
+        if (dog==null){
             return ResponseEntity.badRequest().body("No dog is found");
         }
-
+        
         return ResponseEntity.ok(dog);
+
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body("An error occured. Please try again later");
+        } 
     }
 
      /**
@@ -71,7 +79,7 @@ public class DogController {
      * Post a new dog to the database. Use the binding result to check that all the required attributes are provided.
      * 
      * @param dog The dog to be posted
-     * @return ResponseEntity containing the created dog if the dog has all of the required attributes
+     * @return ResponseEntity of ok if the dog has all of the required attributes
      * 
      */
     @PostMapping("/dogs/createNewDog")
@@ -89,7 +97,12 @@ public class DogController {
              return ResponseEntity.badRequest().body(errorMessages);
         }
     	
-    	return ResponseEntity.ok(dogServiceInterface.createDog(dog));
+    	try {
+            dogServiceInterface.createDog(dog);
+            return ResponseEntity.ok("dog created succesfully");
+        }catch(Exception e){
+                return ResponseEntity.badRequest().body("An error occured. Please try again later");
+            } 
     	
 
     }

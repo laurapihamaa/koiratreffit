@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,7 +63,7 @@ public class AuthController {
             userServiceInterface.createUser(user);
             return ResponseEntity.ok("User created succesfully");           
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An exeption occured. Please try again later.");
+            return ResponseEntity.badRequest().body("An exeption occured. Please try again later.");
         }	
 
     }
@@ -79,38 +79,39 @@ public class AuthController {
     @GetMapping("/login")
     public ResponseEntity<?>  loginUser (@RequestBody LoginRequest loginRequest) {
 
-        //create token for the authentication request 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsernameOrEmail(), loginRequest.getPassword());
-    	
         try{
+
+            //create token for the authentication request 
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+            loginRequest.getUsernameOrEmail(), loginRequest.getPassword());
 
             //test authentication with the given credentials
             authentication = authenticationManager.authenticate(authentication);
 
-            if(authentication.isAuthenticated()){
+            //retrieve the object attached to the authentication
+            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
-                //retrieve the object attached to the authentication
-                CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+            User loggedUser = customUserDetails.getUser();
+            Dog usersDog = customUserDetails.getDog();
 
-                User loggedUser = customUserDetails.getUser();
-                Dog usersDog = customUserDetails.getDog();
+            //create login response containing username, email, imagedata and users dog
+            UserLoginResponse loginResponse = new UserLoginResponse(
+                loggedUser.getUsername(),
+                loggedUser.getEmail(),
+                loggedUser.getImageData(),
+                usersDog
+            );
 
-                //create login response containing username, email, imagedata and users dog
-                UserLoginResponse loginResponse = new UserLoginResponse(
-                    loggedUser.getUsername(),
-                    loggedUser.getEmail(),
-                    loggedUser.getImageData(),
-                    usersDog
-                );
+            return ResponseEntity.ok(loginResponse);
 
-                return ResponseEntity.ok(loginResponse);
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed");
-            }
         } catch (BadCredentialsException ex){
-            return ResponseEntity.badRequest().body("Invalid credentials");
-        }
+            return ResponseEntity.badRequest().body("Invalid credentials.");
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.badRequest().body("Username/email not found.");
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+        
     	
 
     }

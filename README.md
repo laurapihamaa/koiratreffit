@@ -35,7 +35,6 @@ Some notes:
 
 *So far the state management done in React seems to be enough but I am still contemplating whether to implement Redux at some point.
 
-*I have developed this app with my whole heart and soul. I started the development when I felt really down and anxious but the development of this app has brought me joy and confidence in myself and the project has been very fullfilling. I just wanted to make a note on this since often code seems like "just code" but the project themselves might be suprisingly meaningfull for their developers.
 
 
 

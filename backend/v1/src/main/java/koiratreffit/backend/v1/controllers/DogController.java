@@ -2,10 +2,8 @@ package koiratreffit.backend.v1.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -41,17 +39,13 @@ public class DogController {
 
         try {
             Dog dog = dogServiceInterface.getDogDataById(id);
-
-            if (dog==null){
-                return ResponseEntity.badRequest().body("No dog is found");
+            if(dog==null){
+                return ResponseEntity.badRequest().body("No dog found with id.");
             }
-
             return ResponseEntity.ok(dog);
             
-        }catch(NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No dog found with ID: " + id);
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured. Please try again later");
+            return ResponseEntity.badRequest().body("An error occured. Please try again later");
         }    
     }
 
@@ -75,10 +69,8 @@ public class DogController {
         
         return ResponseEntity.ok(dog);
 
-        }catch(NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No dogs found");
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured. Please try again later");
+            return ResponseEntity.badRequest().body("An error occured. Please try again later");
         } 
     }
 
@@ -109,7 +101,7 @@ public class DogController {
             dogServiceInterface.createDog(dog);
             return ResponseEntity.ok("dog created succesfully");
         }catch(Exception e){
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured. Please try again later");
+                return ResponseEntity.badRequest().body("An error occured. Please try again later");
             } 
     	
 

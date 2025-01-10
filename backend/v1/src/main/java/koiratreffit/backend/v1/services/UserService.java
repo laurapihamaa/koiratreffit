@@ -30,11 +30,18 @@ public class UserService implements UserServiceInterface{
     @Override
     public User createUser(User user) {
 
+        try{
+
         String hashedPassword = passwordEncoder.encode(user.getPassword());
 
         user.setPassword(hashedPassword);
+        user.setRoles("ROLE_USER");
 
         return userRepository.save(user);
+        
+        } catch (Exception e){
+            throw new RuntimeException("Error creating user.");
+        }
     }
 
 }

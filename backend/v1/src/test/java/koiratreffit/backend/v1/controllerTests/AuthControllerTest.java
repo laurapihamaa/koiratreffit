@@ -3,13 +3,19 @@ package koiratreffit.backend.v1.controllerTests;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -20,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import koiratreffit.backend.v1.configurations.SecurityConfig;
 import koiratreffit.backend.v1.controllers.AuthController;
 import koiratreffit.backend.v1.interfaces.UserServiceInterface;
+import koiratreffit.backend.v1.objects.CustomUserDetails;
+import koiratreffit.backend.v1.objects.LoginRequest;
 import koiratreffit.backend.v1.objects.User;
 import koiratreffit.backend.v1.repositories.UserRepository;
 import koiratreffit.backend.v1.services.LoginService;
@@ -37,10 +45,20 @@ public class AuthControllerTest {
     @MockBean
     UserRepository userRepository;
 
+    @MockBean
+    AuthenticationManager authenticationManager;
+
+    @MockBean
+    CustomUserDetails customUserDetails;
+
     @Autowired
     private MockMvc mockMvc;
 
     private User user;
+
+    @MockBean
+    LoginRequest loginRequest;
+
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -248,5 +266,35 @@ public class AuthControllerTest {
             .andExpect(jsonPath("$.password").value("Password is required"));
  
      }
+
+     @Test
+     public void loginUser_loginOk () throws Exception{
+
+        String usernameOrEmail="testlogin@test.fi";
+        String password = "TestLogin1234!";
+
+        loginRequest.setUsernameOrEmail(usernameOrEmail);
+        loginRequest.setPassword(password);
+
+        Authentication authentication=mock(UsernamePasswordAuthenticationToken.class);
+        User loginUser=mock(User.class);
+
+        when(authenticationManager.authenticate(any(Authentication.class)))
+            .thenReturn(authentication);
+
+        when(authentication.getPrincipal()).thenReturn(customUserDetails);
+
+        when(customUserDetails.getUser()).thenReturn(loginUser);
+        when(loginUser.getEmail()).thenReturn(usernameOrEmail);
+
+        mockMvc.perform(get("/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(loginRequest)))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(jsonPath("$.email").value(usernameOrEmail));
+
+     }
+
     
 }
